@@ -1,17 +1,29 @@
-tensorflow>=2.20,<2.21
-tf-keras>=2.20,<2.21
-tensorflow-hub>=0.16,<0.17
-tensorflow-text>=2.20,<2.21
+# Core ML
+tensorflow==2.20.0
+tf-keras==2.20.1
+tensorflow-hub==0.16.1
+tensorflow-text==2.20.1
 
-pandas>=2.3,<2.4
-numpy>=2.0
-scikit-learn>=1.6,<1.7
-matplotlib>=3.10,<3.11
+# Data Processing
+pandas==2.3.3
+numpy
+scikit-learn==1.6.1
 
-kagglehub>=1.0
+# Visualization
+matplotlib==3.10.0
+
+# Kaggle
+kagglehub==1.0.0
+
+# Progress Bars
 tqdm
+
+# TensorFlow Official Models (AdamWeightDecay, WarmUp)
 tf-models-official
 
+# Jupyter Notebook
 jupyter
 ipykernel
 ipywidgets
+
+fastapi

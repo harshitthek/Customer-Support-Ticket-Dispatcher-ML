@@ -1,0 +1,4 @@
+.venv
+model/__pycache__
+schema/__pycache__
+__pycache__
