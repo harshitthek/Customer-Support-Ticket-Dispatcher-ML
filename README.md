@@ -33,35 +33,24 @@ Both tasks are solved **simultaneously** using a single forward pass through a m
 
 ## 🏗️ Architecture
 
-```
-                    ┌─────────────────────┐
-                    │   Customer Email    │
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────▼──────────┐
-                    │  BERT Preprocessor  │
-                    │  (Tokenizer, 128)   │
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────▼──────────┐
-                    │    BERT Encoder     │
-                    │  12-layer, 768-dim  │
-                    │   109M parameters   │
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────▼──────────┐
-                    │   Dropout (0.1)     │
-                    └─────┬─────────┬─────┘
-                          │         │
-               ┌──────────▼───┐ ┌───▼──────────┐
-               │  Team Head   │ │ Urgency Head │
-               │  Dense(5)    │ │  Dense(1)    │
-               └──────────┬───┘ └───┬──────────┘
-                          │         │
-               ┌──────────▼───┐ ┌───▼──────────┐
-               │ Predicted    │ │  Urgency     │
-               │ Team         │ │  Score       │
-               └──────────────┘ └──────────────┘
+```mermaid
+graph TD
+    A["Customer Email"] --> B["BERT Preprocessor (Tokenizer, 128)"]
+    B --> C["BERT Encoder (12-layer, 768-dim)"]
+    C --> D["Dropout (0.1)"]
+    D --> E["Team Head (Dense 5)"]
+    D --> F["Urgency Head (Dense 1)"]
+    E --> G["Predicted Team"]
+    F --> H["Urgency Score"]
+
+    style A fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,color:#01579b
+    style B fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#e65100
+    style C fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#e65100
+    style D fill:#fce4ec,stroke:#e91e63,stroke-width:2px,color:#880e4f
+    style E fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20
+    style F fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20
+    style G fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#4a148c
+    style H fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#4a148c
 ```
 
 ---
@@ -69,6 +58,17 @@ Both tasks are solved **simultaneously** using a single forward pass through a m
 ## 📊 Model Performance
 
 Trained on the [Synthetic Support Emails](https://www.kaggle.com/datasets/pernavjain/synthetic-emails) dataset using a **Tesla P100 GPU**.
+
+### Training Graphs
+
+<p align="center">
+  <img src="assets/graph_1.png" alt="Training Metrics" width="60%"/>
+</p>
+<p align="center">
+  <img src="assets/graph_2.png" alt="Validation Loss" width="60%"/>
+</p>
+
+### Final Metrics
 
 | Metric | Train | Validation | Test |
 |--------|-------|------------|------|
@@ -185,6 +185,7 @@ Classify an email and predict urgency.
 
 ```
 Customer-Support-Ticket-Dispatcher-ML/
+├── assets/                         # Documentation images and graphs
 ├── app.py                          # FastAPI REST API server
 ├── streamlit_app.py                # Streamlit web interface
 ├── requirements.txt                # Python dependencies
