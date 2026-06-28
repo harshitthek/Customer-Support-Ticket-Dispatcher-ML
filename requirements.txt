@@ -1,5 +1,5 @@
 # Core ML
-setuptools>=65
+setuptools==75.8.0
 tensorflow==2.20.0
 tf-keras==2.20.1
 tensorflow-hub==0.16.1
